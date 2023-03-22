@@ -27,7 +27,7 @@ namespace ADONetOrnek2
         private void UrunListele()
         {
             //Disconnected mimari
-            SqlDataAdapter adp = new SqlDataAdapter("select * from Urunler", baglanti);
+            SqlDataAdapter adp = new SqlDataAdapter("select * from Urunler where Sonlandi=0", baglanti);
             DataTable dt = new DataTable();
             adp.Fill(dt);
 
@@ -50,7 +50,12 @@ namespace ADONetOrnek2
             else
             {
                 SqlCommand komut = new SqlCommand();
-                komut.CommandText = string.Format("insert into Urunler (UrunAdi,BirimFiyati,HedefStokDuzeyi)     values('{0}',{1},{2})", urunad, fiyat, stok);
+                //komut.CommandText = string.Format("insert into Urunler (UrunAdi,BirimFiyati,HedefStokDuzeyi)     values('{0}',{1},{2})", urunad, fiyat, stok);
+
+                komut.CommandText = "insert into Urunler (UrunAdi,BirimFiyati,HedefStokDuzeyi)     values(@urunAdi,@fiyat,@stok)";
+                komut.Parameters.AddWithValue("@urunAdi", urunad);
+                komut.Parameters.AddWithValue("@fiyat", fiyat);
+                komut.Parameters.AddWithValue("@stok", stok);
 
                 komut.Connection = baglanti;
 
@@ -101,8 +106,13 @@ namespace ADONetOrnek2
             string fiyat = nud_fiyat.Value.ToString().Replace(',', '.');
        
             SqlCommand komut = new SqlCommand();
-            komut.CommandText =string.Format("update Urunler set UrunAdi='{0}' ,BirimFiyati={1} ,HedefStokDuzeyi={2}  where UrunID={3}",txt_urunad.Text,fiyat,nud_stok.Value,txt_urunad.Tag);
-           
+            //komut.CommandText =string.Format("update Urunler set UrunAdi='{0}' ,BirimFiyati={1} ,HedefStokDuzeyi={2}  where UrunID={3}",txt_urunad.Text,fiyat,nud_stok.Value,txt_urunad.Tag);
+
+
+            //komut.CommandText ="update Urunler set UrunAdi=@urunAd ,BirimFiyati=@fiyat ,HedefStokDuzeyi=@stok where UrunID=@id");
+
+            komut.Parameters.AddWithValue("@urunAd", txt_urunad.Text);
+
             komut.Connection = baglanti;
             baglanti.Open();
             int sonuc=komut.ExecuteNonQuery();
@@ -115,6 +125,88 @@ namespace ADONetOrnek2
             else
             {
                 MessageBox.Show("Kayıt güncelleme işlemi sırasında hata oluştu.");
+            }
+        }
+
+        private void silToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int id =Convert.ToInt32(dgv_urunler.CurrentRow.Cells["UrunID"].Value);
+
+            
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.CommandText =string.Format("delete Urunler where UrunID={0}",id);
+            //cmd.Connection = baglanti;
+
+            //StoreProcedure ile ürün silme
+            SqlCommand cmd=new SqlCommand("UrunSil", baglanti);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@urunId",id);
+
+            baglanti.Open();
+            int sonuc=cmd.ExecuteNonQuery();
+            baglanti.Close();
+
+            if (sonuc > 0)
+            {
+                MessageBox.Show("Kayıt silindi");
+                UrunListele();
+            }
+            else
+            {
+                MessageBox.Show("Kayıt silme işlemi sırasında hata oluştu.");
+            }
+
+        }
+
+        private void dgv_urunler_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void dgv_urunler_KeyDown(object sender, KeyEventArgs e)
+        {
+           if(e.KeyCode==Keys.Delete)
+            {
+                int id = Convert.ToInt32(dgv_urunler.CurrentRow.Cells["UrunID"].Value);
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = string.Format("delete Urunler where UrunID={0}", id);
+                cmd.Connection = baglanti;
+                baglanti.Open();
+                int sonuc = cmd.ExecuteNonQuery();
+                baglanti.Close();
+
+                if (sonuc > 0)
+                {
+                    MessageBox.Show("Kayıt silindi");
+                    UrunListele();
+                }
+                else
+                {
+                    MessageBox.Show("Kayıt silme işlemi sırasında hata oluştu.");
+                }
+            }
+        }
+
+        private void btn_SPEkle_Click(object sender, EventArgs e)
+        {
+            SqlCommand komut=new SqlCommand("UrunEkle", baglanti);
+            komut.CommandType = CommandType.StoredProcedure;
+            komut.Parameters.AddWithValue("@urunAdi",txt_urunad.Text);
+            komut.Parameters.AddWithValue("@fiyat", nud_fiyat.Value);
+            komut.Parameters.AddWithValue("@stok", nud_stok.Value);
+
+            baglanti.Open();
+            int sonuc=komut.ExecuteNonQuery();
+            baglanti.Close();
+
+            if (sonuc > 0)
+            {
+                MessageBox.Show("Kayıt ekleme başarılı");
+                UrunListele();
+            }
+            else
+            {
+                MessageBox.Show("Kayıt eklem sırasında hata oluştu.");
             }
         }
     }

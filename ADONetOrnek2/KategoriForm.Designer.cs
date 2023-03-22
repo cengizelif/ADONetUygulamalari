@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_Ekle = new System.Windows.Forms.Button();
             this.txt_katad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_kategoriler = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_tanim = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_kategoriler)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Ekle
@@ -66,10 +70,12 @@
             // dgv_kategoriler
             // 
             this.dgv_kategoriler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_kategoriler.ContextMenuStrip = this.contextMenuStrip1;
             this.dgv_kategoriler.Location = new System.Drawing.Point(12, 50);
             this.dgv_kategoriler.Name = "dgv_kategoriler";
             this.dgv_kategoriler.Size = new System.Drawing.Size(746, 302);
             this.dgv_kategoriler.TabIndex = 3;
+            this.dgv_kategoriler.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_kategoriler_CellValueChanged);
             // 
             // label2
             // 
@@ -86,6 +92,20 @@
             this.txt_tanim.Name = "txt_tanim";
             this.txt_tanim.Size = new System.Drawing.Size(344, 20);
             this.txt_tanim.TabIndex = 1;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.silToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(87, 26);
+            // 
+            // silToolStripMenuItem
+            // 
+            this.silToolStripMenuItem.Name = "silToolStripMenuItem";
+            this.silToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.silToolStripMenuItem.Text = "Sil";
+            this.silToolStripMenuItem.Click += new System.EventHandler(this.silToolStripMenuItem_Click);
             // 
             // KategoriForm
             // 
@@ -104,6 +124,7 @@
             this.Text = "KategoriForm";
             this.Load += new System.EventHandler(this.KategoriForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_kategoriler)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,5 +138,7 @@
         private System.Windows.Forms.DataGridView dgv_kategoriler;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txt_tanim;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgv_urunler = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_urunad = new System.Windows.Forms.TextBox();
@@ -38,20 +39,27 @@
             this.btn_Ekle = new System.Windows.Forms.Button();
             this.btn_kategoriler = new System.Windows.Forms.Button();
             this.btn_guncelle = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_SPEkle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_urunler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_fiyat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_stok)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_urunler
             // 
             this.dgv_urunler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_urunler.ContextMenuStrip = this.contextMenuStrip1;
             this.dgv_urunler.Location = new System.Drawing.Point(24, 65);
             this.dgv_urunler.Name = "dgv_urunler";
             this.dgv_urunler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_urunler.Size = new System.Drawing.Size(776, 302);
+            this.dgv_urunler.Size = new System.Drawing.Size(866, 302);
             this.dgv_urunler.TabIndex = 5;
             this.dgv_urunler.Click += new System.EventHandler(this.dgv_urunler_Click);
+            this.dgv_urunler.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_urunler_KeyDown);
+            this.dgv_urunler.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgv_urunler_KeyPress);
             // 
             // label1
             // 
@@ -66,13 +74,13 @@
             // 
             this.txt_urunad.Location = new System.Drawing.Point(71, 24);
             this.txt_urunad.Name = "txt_urunad";
-            this.txt_urunad.Size = new System.Drawing.Size(139, 20);
+            this.txt_urunad.Size = new System.Drawing.Size(102, 20);
             this.txt_urunad.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(216, 27);
+            this.label2.Location = new System.Drawing.Point(179, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
@@ -80,20 +88,20 @@
             // 
             // nud_fiyat
             // 
-            this.nud_fiyat.Location = new System.Drawing.Point(251, 24);
+            this.nud_fiyat.Location = new System.Drawing.Point(214, 24);
             this.nud_fiyat.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.nud_fiyat.Name = "nud_fiyat";
-            this.nud_fiyat.Size = new System.Drawing.Size(120, 20);
+            this.nud_fiyat.Size = new System.Drawing.Size(72, 20);
             this.nud_fiyat.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(377, 27);
+            this.label3.Location = new System.Drawing.Point(292, 27);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 3;
@@ -101,19 +109,19 @@
             // 
             // nud_stok
             // 
-            this.nud_stok.Location = new System.Drawing.Point(412, 25);
+            this.nud_stok.Location = new System.Drawing.Point(327, 25);
             this.nud_stok.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.nud_stok.Name = "nud_stok";
-            this.nud_stok.Size = new System.Drawing.Size(120, 20);
+            this.nud_stok.Size = new System.Drawing.Size(65, 20);
             this.nud_stok.TabIndex = 2;
             // 
             // btn_Ekle
             // 
-            this.btn_Ekle.Location = new System.Drawing.Point(538, 22);
+            this.btn_Ekle.Location = new System.Drawing.Point(398, 22);
             this.btn_Ekle.Name = "btn_Ekle";
             this.btn_Ekle.Size = new System.Drawing.Size(68, 23);
             this.btn_Ekle.TabIndex = 3;
@@ -123,7 +131,7 @@
             // 
             // btn_kategoriler
             // 
-            this.btn_kategoriler.Location = new System.Drawing.Point(709, 22);
+            this.btn_kategoriler.Location = new System.Drawing.Point(569, 22);
             this.btn_kategoriler.Name = "btn_kategoriler";
             this.btn_kategoriler.Size = new System.Drawing.Size(91, 23);
             this.btn_kategoriler.TabIndex = 4;
@@ -133,7 +141,7 @@
             // 
             // btn_guncelle
             // 
-            this.btn_guncelle.Location = new System.Drawing.Point(612, 22);
+            this.btn_guncelle.Location = new System.Drawing.Point(472, 22);
             this.btn_guncelle.Name = "btn_guncelle";
             this.btn_guncelle.Size = new System.Drawing.Size(91, 23);
             this.btn_guncelle.TabIndex = 3;
@@ -141,13 +149,38 @@
             this.btn_guncelle.UseVisualStyleBackColor = true;
             this.btn_guncelle.Click += new System.EventHandler(this.btn_guncelle_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.silToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(87, 26);
+            // 
+            // silToolStripMenuItem
+            // 
+            this.silToolStripMenuItem.Name = "silToolStripMenuItem";
+            this.silToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
+            this.silToolStripMenuItem.Text = "Sil";
+            this.silToolStripMenuItem.Click += new System.EventHandler(this.silToolStripMenuItem_Click);
+            // 
+            // btn_SPEkle
+            // 
+            this.btn_SPEkle.Location = new System.Drawing.Point(666, 22);
+            this.btn_SPEkle.Name = "btn_SPEkle";
+            this.btn_SPEkle.Size = new System.Drawing.Size(68, 23);
+            this.btn_SPEkle.TabIndex = 3;
+            this.btn_SPEkle.Text = "SP ile Ekle";
+            this.btn_SPEkle.UseVisualStyleBackColor = true;
+            this.btn_SPEkle.Click += new System.EventHandler(this.btn_SPEkle_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 389);
+            this.ClientSize = new System.Drawing.Size(902, 389);
             this.Controls.Add(this.btn_kategoriler);
             this.Controls.Add(this.btn_guncelle);
+            this.Controls.Add(this.btn_SPEkle);
             this.Controls.Add(this.btn_Ekle);
             this.Controls.Add(this.nud_stok);
             this.Controls.Add(this.label3);
@@ -164,6 +197,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_urunler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_fiyat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_stok)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,6 +215,9 @@
         private System.Windows.Forms.Button btn_Ekle;
         private System.Windows.Forms.Button btn_kategoriler;
         private System.Windows.Forms.Button btn_guncelle;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
+        private System.Windows.Forms.Button btn_SPEkle;
     }
 }
 
